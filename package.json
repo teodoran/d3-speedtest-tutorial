@@ -1,0 +1,35 @@
+{
+  "name": "d3-speedtest-tutorial",
+  "version": "1.0.0",
+  "description": "A tutorial where you'll learn to make a network-speed monitoring tool and data store using Node.js and Express and online viewer using D3.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teodoran/d3-speedtest-tutorial.git"
+  },
+  "keywords": [
+    "d3",
+    "express",
+    "node",
+    "speedtest",
+    "speedtest-cli",
+    "heroku"
+  ],
+  "authors": [
+    "teodoran",
+    "krsjan"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teodoran/d3-speedtest-tutorial/issues"
+  },
+  "homepage": "https://github.com/teodoran/d3-speedtest-tutorial#readme",
+  "dependencies": {
+    "d3": "^3.5.9",
+    "express": "^4.13.3"
+  }
+}
