@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/teodoran/d3-speedtest-tutorial#readme",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "d3": "^3.5.9",
     "express": "^4.13.3"
   }
