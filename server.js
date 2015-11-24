@@ -4,7 +4,7 @@ var express = require('express'),
 
     port = process.env.PORT || 3000,
     secret = process.env.SECRET || 'NotSecret',
-    data = require('./dummy-data.json');
+    data = require('./dummy-data');
 
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
