@@ -35,6 +35,6 @@ app.get('/history', function (req, res) {
   res.json(data);
 });
 
-var server = app.listen(port, function () {
+var server = http.listen(port, function () {
   console.log('d3-speedtest-tutorial listening on port %s', port);
 });
