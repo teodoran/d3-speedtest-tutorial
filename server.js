@@ -4,7 +4,7 @@ var express = require('express'),
 
     port = process.env.PORT || 3000,
     secret = process.env.SECRET || 'NotSecret',
-    data = require('./dummy-data');
+    data = require('./dummy-data.json');
 
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
@@ -23,7 +23,7 @@ app.post('/log', function(request, response){
 });
 
 app.get('/history', function (req, res) {
-  res.json({data});
+  res.json(data);
 });
 
 var server = app.listen(port, function () {
