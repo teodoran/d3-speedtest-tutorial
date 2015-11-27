@@ -1,10 +1,9 @@
 // CONFIG="prod-config" node speedtest-logger.js
-var speedTest = require('speedtest-net'),
-    configFile = process.env.CONFIG || "dev-config",
+var speedtest = require('speedtest-net'),
+    configFile = process.env.CONFIG || "prod-config",
     config = require('./' + configFile),
 
-    http = require('http'),
-
+    https = require('https'),
 
     options = {
       host: config.host,
@@ -16,9 +15,9 @@ var speedTest = require('speedtest-net'),
         'secret': config.secret
       }
     },
-    test = speedTest({maxTime: 5000});
+    stream = speedtest({maxTime: 5000});
 
-var req = http.request(options, function(response) {
+var req = https.request(options, function(response) {
   var str = '';
 
   response.on('data', function (chunk) {
@@ -30,13 +29,21 @@ var req = http.request(options, function(response) {
   });
 });
 
-test.on('data', function (data) {
+stream.on('downloadspeedprogress',function(speed){
+    console.log('Download speed:',speed,'MB/s');
+});
+
+stream.on('uploadspeedprogress',function(speed){
+    console.log('Upload speed:',speed,'MB/s');
+});
+
+stream.on('data', function (data) {
     var result = JSON.stringify(data);
     options.headers["Content-Length"] = Buffer.byteLength(result);
     req.write(result);
     req.end();
 });
 
-test.on('error', function (err) {
+stream.on('error', function (err) {
     console.error(err);
 });

@@ -1,7 +1,8 @@
-var express = require('express'),
-    bodyParser = require('body-parser'),
+var bodyParser = require('body-parser'),
+    express = require('express'),
     app = express(),
-
+    http = require('http').Server(app),
+    io = require('socket.io')(http),
     port = process.env.PORT || 3000,
     secret = process.env.SECRET || 'NotSecret',
     data = require('./dummy-data.json');
@@ -21,6 +22,14 @@ app.post('/log', function(request, response){
     response.status(401).end();
   }
 });
+
+io.on('connection', function (socket) {
+  console.log('a user connected');
+  socket.on('disconnect', function (data) {
+    console.log('a user disconnected');
+  });
+});
+
 
 app.get('/history', function (req, res) {
   res.json(data);
