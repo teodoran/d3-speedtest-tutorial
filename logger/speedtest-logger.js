@@ -2,46 +2,29 @@
 var speedtest = require('speedtest-net'),
     configFile = process.env.CONFIG || "prod-config",
     config = require('./' + configFile),
-
-    https = require('https'),
-
-    options = {
-      host: config.host,
-      port: config.port,
-      path: '/log',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'secret': config.secret
-      }
-    },
+    secret = 'NotSecret',
     stream = speedtest({maxTime: 5000});
 
-var req = https.request(options, function(response) {
-  var str = '';
+var socket = require('socket.io-client')('http://localhost:3000/authenticated', { query: 'secret=' + secret });
 
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-
-  response.on('end', function () {
-    console.log(str);
-  });
+socket.on('connect', function () {
+    console.log("Successfully connected")
 });
 
-stream.on('downloadspeedprogress',function(speed){
-    console.log('Download speed:',speed,'MB/s');
+socket.on('disconnect', function () {
+    console.log("Disqualified.");
 });
 
-stream.on('uploadspeedprogress',function(speed){
-    console.log('Upload speed:',speed,'MB/s');
+stream.on('downloadspeedprogress', function (speed) {
+    socket.emit('dlspeed', speed);
+});
+
+stream.on('uploadspeedprogress', function (speed) {
+    socket.emit('ulspeed', speed);
 });
 
 stream.on('data', function (data) {
-    var result = JSON.stringify(data);
-    options.headers["Content-Length"] = Buffer.byteLength(result);
-    req.write(result);
-    req.end();
+    socket.emit('results', data);
 });
 
 stream.on('error', function (err) {

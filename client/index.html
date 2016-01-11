@@ -4,9 +4,22 @@
   <title>d3-speedtest-tutorial</title>
   <script src="/d3.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-  <script src="everybitmatters.js"></script>
+  <link href="css/every-bit-matters.css" rel="stylesheet"/>
 </head>
 <body>
   <h1><a href="https://github.com/teodoran/d3-speedtest-tutorial">d3-speedtest-tutorial</a></h1>
+  <svg>
+    <g transform="translate(150, 150)">
+      <circle cx="0" cy="0" r="50"></circle>
+      <text id="dlspeed">NOTHING</text>
+    </g>
+  </svg>
+  <svg>
+    <g transform="translate(150, 150)">
+      <circle cx="0" cy="0" r="50"></circle>
+      <text id="ulspeed">NOTHING</text>
+    </g>
+  </svg>
+  <script src="every-bit-matters.js"></script>
 </body>
 </html>
