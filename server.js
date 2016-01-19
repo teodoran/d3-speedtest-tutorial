@@ -4,7 +4,8 @@ var port = process.env.PORT || 3000,
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
-    authenticated = io.of('/authenticated');
+    authenticated = io.of('/authenticated'),
+    loggers = 0;
 
 
 //db_username = process.env.DB_USERNAME || null,
@@ -29,6 +30,13 @@ authenticated.use(function (socket, next) {
 });
 
 authenticated.on('connection', function (socket) {
+    loggers +=1 ;
+    io.emit('nr-of-loggers', loggers);
+
+    socket.on('disconnect', function () {
+        loggers -= 1;
+        io.emit('nr-of-loggers', loggers);
+    });
 
     socket.on('dlspeed', function (data) {
         io.emit('dlspeed', data);
