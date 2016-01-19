@@ -1,37 +1,25 @@
-var bodyParser = require('body-parser'),
+var port = process.env.PORT || 3000,
+    secret = process.env.SECRET || 'NotSecret',
     express = require('express'),
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
-    port = process.env.PORT || 3000,
-    db_username = process.env.DB_USERNAME || null,
-    db_password = process.env.DB_PASSWORD || null,
-    secret = process.env.SECRET || 'NotSecret',
-    data = require('./dummy-data.json');
+    authenticated = io.of('/authenticated');
 
-if (db_username && dn_password) {
-    var mongoose = require('mongoose');
-    mongoose.connect('mongodb://' + db_username + ':' + db_password + '@ds035985.mongolab.com:35985/heroku_gvg12xd2');
-}
 
+//db_username = process.env.DB_USERNAME || null,
+//db_password = process.env.DB_PASSWORD || null,
+//if (db_username && dn_password) {
+//    var mongoose = require('mongoose');
+//    mongoose.connect('mongodb://' + db_username + ':' + db_password + '@ds035985.mongolab.com:35985/heroku_gvg12xd2');
+//}
+
+// love from teo
+// curl -d '{"MyKey":"My Value"}' -H "Content-Type: application/json" -H "secret: NotSecret" -i http://127.0.0.1:3000/log
+
+// client instantiation
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
-
-app.use(bodyParser.json());
-
-// curl -d '{"MyKey":"My Value"}' -H "Content-Type: application/json" -H "secret: NotSecret" -i http://127.0.0.1:3000/log
-app.post('/log', function (request, response) {
-    if (request.headers['secret'] === secret) {
-        console.log(request.body);
-        response.status(200).end();
-    } else {
-        console.log('Unauthorized access attempt at /log');
-        response.status(401).end();
-    }
-});
-
-
-var authenticated = io.of('/authenticated');
 
 authenticated.use(function (socket, next) {
     var handshakeData = socket.request;
@@ -51,9 +39,6 @@ authenticated.on('connection', function (socket) {
     });
 
     socket.on('results', function (data) {
-        if (mongoose) {
-            // TODO: Admit that this was a mistake.
-        }
         io.emit('results', data);
     });
 
@@ -61,8 +46,12 @@ authenticated.on('connection', function (socket) {
 
 io.on('connection', function (socket) {
 
-    socket.on('connect', function (data) {
-        console.log('a user disconnected');
+    socket.on('speedtest', function (data) {
+        if (data.secret === secret) {
+            authenticated.emit('speedtest');
+        } else {
+            console.log("You are not!");
+        }
     });
 
     socket.on('disconnect', function (data) {
