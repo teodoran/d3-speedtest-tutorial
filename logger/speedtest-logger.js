@@ -1,6 +1,6 @@
 // CONFIG="prod-config" node speedtest-logger.js
 var speedtest = require('speedtest-net'),
-    configFile = process.env.CONFIG || "prod-config",
+    configFile = process.env.CONFIG || "dev-config",
     config = require('./' + configFile),
     fs = require('fs'),
     secret = 'NotSecret',
