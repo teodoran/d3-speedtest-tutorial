@@ -12,11 +12,7 @@ io.on('ulspeed', function (data) {
     d3.select('#ulspeed').text(Math.round(data, 2));
 });
 
-io.on('history', function (data) {
-    console.log(data);
-});
-
-io.on('data', function (data) {
+io.on('results', function (data) {
     console.log(data);
 });
 
@@ -27,8 +23,3 @@ function runSpeedTest () {
 }
 
 // TODO: Create client interface.
-
-//var svg = d3.select('body').append('svg');
-//var circle = svg.append('circle').attr('cx', '50%').attr('cy', '50%').attr('r', 50);
-//
-//circle.transition().attr('transform', 'rotate(35deg)');

@@ -8,7 +8,6 @@ var express = require('express'),
     secret = process.env.SECRET || 'NotSecret',
     loggers = 0;
 
-
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
 
@@ -39,7 +38,6 @@ authenticated.on('connection', function (socket) {
     socket.on('results', function (data) {
         io.emit('results', data);
     });
-
 });
 
 io.on('connection', function (socket) {
@@ -54,10 +52,6 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function (data) {
         console.log('a user disconnected');
     });
-});
-
-app.get('/history', function (req, res) {
-    res.json(data);
 });
 
 var server = http.listen(port, function () {
