@@ -54,6 +54,16 @@ io.on('connection', function (socket) {
     });
 });
 
+var runLoggers = function () {
+    setTimeout(function () {
+        console.log('Running automated speedtest')
+        authenticated.emit('speedtest');
+        runLoggers();
+    }, 60000);
+};
+
+runLoggers();
+
 var server = http.listen(port, function () {
     console.log('server listening on port %s', port);
 });
