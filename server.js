@@ -1,24 +1,14 @@
-var port = process.env.PORT || 3000,
-    secret = process.env.SECRET || 'NotSecret',
-    express = require('express'),
+var express = require('express'),
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
     authenticated = io.of('/authenticated'),
+
+    port = process.env.PORT || 3000,
+    secret = process.env.SECRET || 'NotSecret',
     loggers = 0;
 
 
-//db_username = process.env.DB_USERNAME || null,
-//db_password = process.env.DB_PASSWORD || null,
-//if (db_username && dn_password) {
-//    var mongoose = require('mongoose');
-//    mongoose.connect('mongodb://' + db_username + ':' + db_password + '@ds035985.mongolab.com:35985/heroku_gvg12xd2');
-//}
-
-// love from teo
-// curl -d '{"MyKey":"My Value"}' -H "Content-Type: application/json" -H "secret: NotSecret" -i http://127.0.0.1:3000/log
-
-// client instantiation
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
 
@@ -53,7 +43,6 @@ authenticated.on('connection', function (socket) {
 });
 
 io.on('connection', function (socket) {
-
     socket.on('speedtest', function (data) {
         if (data.secret === secret) {
             authenticated.emit('speedtest');
@@ -67,11 +56,10 @@ io.on('connection', function (socket) {
     });
 });
 
-
 app.get('/history', function (req, res) {
     res.json(data);
 });
 
 var server = http.listen(port, function () {
-    console.log('d3-speedtest-tutorial listening on port %s', port);
+    console.log('server listening on port %s', port);
 });
