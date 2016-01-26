@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "log": "node logger/speedtest-logger.js"
+    "log": "node logger/logger.js"
   },
   "repository": {
     "type": "git",
