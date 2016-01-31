@@ -12,7 +12,7 @@ body {
     display: block;
 }
 
-svg {
+svg.circle {
     height: 300px;
     width: 300px;
 }
@@ -38,4 +38,35 @@ text {
     to {
         transform: rotate(360deg);
     }
+}
+
+/*
+ * Graph styles
+ */
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.download-line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.upload-line {
+  fill: none;
+  stroke: #FF7F0E;
+  stroke-width: 1.5px;
 }

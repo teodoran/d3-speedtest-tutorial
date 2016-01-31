@@ -10,6 +10,7 @@ var express = require('express'),
 
 app.use(express.static('client'));
 app.use(express.static('node_modules/d3/'));
+app.use(express.static('node_modules/socket.io-client/'));
 
 authenticated.use(function (socket, next) {
     var handshakeData = socket.request;
@@ -38,9 +39,16 @@ authenticated.on('connection', function (socket) {
     socket.on('results', function (data) {
         io.emit('results', data);
     });
+
+    socket.on('history', function (data) {
+        io.emit('history', data);
+    });
 });
 
 io.on('connection', function (socket) {
+    // Get history on connection
+    authenticated.emit('history');
+
     socket.on('speedtest', function (data) {
         if (data.secret === secret) {
             authenticated.emit('speedtest');

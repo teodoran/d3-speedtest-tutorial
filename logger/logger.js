@@ -12,6 +12,10 @@ socket.on('disconnect', function () {
     console.log("Logger disconnect");
 });
 
+socket.on('history', function () {
+    socket.emit('history', history);
+});
+
 socket.on('speedtest', function () {
     console.log('Starting speedtest...');
     var stream = speedtest({maxTime: 5000});
@@ -25,7 +29,14 @@ socket.on('speedtest', function () {
     });
 
     stream.on('data', function (data) {
-        history.push(data);
+        var result = {
+            download: data.speeds.download,
+            upload: data.speeds.upload,
+            ping: data.server.ping,
+            date: Date.now()
+        };
+
+        history.push(result);
         socket.emit('results', history);
 
         fileSystem.writeFile('logger/log.json', JSON.stringify(history), function (err) {
