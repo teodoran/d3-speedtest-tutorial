@@ -1,43 +1,34 @@
 var speedtest = require('speedtest-net'),
     fileSystem = require('fs'),
     history = JSON.parse(fileSystem.readFileSync('logger/log.json')),
-    secret = process.env.SECRET || 'NotSecret',
-    socket = require('socket.io-client')('http://localhost:3000/authenticated', { query: 'secret=' + secret });
+    io = require('socket.io-client')('http://localhost:3000/');
 
-socket.on('connect', function () {
+io.on('connect', function () {
     console.log("Logger successfully connected");
 });
 
-socket.on('disconnect', function () {
+io.on('disconnect', function () {
     console.log("Logger disconnect");
 });
 
-socket.on('history', function () {
-    socket.emit('history', history);
+io.on('get_speedtest_history', function () {
+    io.emit('broadcast_results', history);
 });
 
-socket.on('speedtest', function () {
+io.on('run_speedtest', function () {
     console.log('Starting speedtest...');
-    var stream = speedtest({maxTime: 5000});
 
-    stream.on('downloadspeedprogress', function (speed) {
-        socket.emit('dlspeed', speed);
-    });
+    var st = speedtest({ maxTime: 5000 });
 
-    stream.on('uploadspeedprogress', function (speed) {
-        socket.emit('ulspeed', speed);
-    });
-
-    stream.on('data', function (data) {
+    st.on('data', function (data) {
         var result = {
-            download: data.speeds.download,
-            upload: data.speeds.upload,
+            download: data.speeds.download * 4,
+            upload: data.speeds.upload * 4,
             ping: data.server.ping,
             date: Date.now()
         };
 
         history.push(result);
-        socket.emit('results', history);
 
         fileSystem.writeFile('logger/log.json', JSON.stringify(history), function (err) {
             if (err) {
@@ -46,9 +37,11 @@ socket.on('speedtest', function () {
                 console.log('speedtest finished');
             }
         });
+
+        io.emit('broadcast_results', history);
     });
 
-    stream.on('error', function (err) {
+    st.on('error', function (err) {
         console.error(err);
     });
 });

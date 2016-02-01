@@ -1,37 +1,11 @@
 var io = io();
 
-io.on('nr-of-loggers', function (data) {
-    d3.select('#loggers').text(data);
-});
-
-io.on('dlspeed', function (data) {
-    d3.select('#dlspeed').text(Math.round(data, 2));
-});
-
-io.on('ulspeed', function (data) {
-    d3.select('#ulspeed').text(Math.round(data, 2));
-});
-
-io.on('results', function (data) {
+io.on('display_results', function (data) {
     drawGraph(data);
-    console.log(data);
 });
 
-io.on('history', function (data) {
-    drawGraph(data);
-    console.log(data);
-});
-
-function runSpeedTest () {
-    event.preventDefault();
-    var secret = d3.select("#secret").property('value');
-    io.emit('speedtest', { secret: secret })
-}
-
-// TODO: Create client interface.
 var data = [];
 
-// Line Graph
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;

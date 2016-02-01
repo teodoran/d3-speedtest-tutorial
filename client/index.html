@@ -7,30 +7,8 @@
   <link href="css/client.css" rel="stylesheet"/>
 </head>
 <body>
-  <h1><a href="https://github.com/teodoran/d3-speedtest-tutorial">Loggers connected: <span id="loggers"></span></a></h1>
-  <svg class="circle">
-    <g transform="translate(150, 150)">
-      <circle cx="0" cy="0" r="50"></circle>
-      <text id="dlspeed">NOTHING</text>
-    </g>
-  </svg>
-
-  <svg class="circle">
-    <g transform="translate(150, 150)">
-      <circle cx="0" cy="0" r="50"></circle>
-      <text id="ulspeed">NOTHING</text>
-    </g>
-  </svg>
-
-  <form onsubmit="runSpeedTest()">
-    <input type="password" id="secret">
-    <button type="submit">Run speedtest</button>
-  </form>
-
-  <div id="graph">
-    <svg id="test-nv"></svg>
-  </div>
-
+  <h1>Speedtest history</h1>
+  <div id="graph"></div>
   <script src="client.js"></script>
 </body>
 </html>
