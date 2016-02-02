@@ -1,6 +1,7 @@
 var speedtest = require('speedtest-net'),
     fileSystem = require('fs'),
-    history = JSON.parse(fileSystem.readFileSync('logger/log.json')),
+    fileName = __dirname + '/log.json',
+    history = JSON.parse(fileSystem.readFileSync(fileName)),
     io = require('socket.io-client')('http://localhost:3000/');
 
 io.on('connect', function () {
@@ -18,30 +19,30 @@ io.on('get_speedtest_history', function () {
 io.on('run_speedtest', function () {
     console.log('Starting speedtest...');
 
-    var st = speedtest({ maxTime: 5000 });
+    var test = speedtest();
 
-    st.on('data', function (data) {
+    test.on('data', function (data) {
         var result = {
-            download: data.speeds.download * 4,
-            upload: data.speeds.upload * 4,
+            download: data.speeds.download,
+            upload: data.speeds.upload,
             ping: data.server.ping,
             date: Date.now()
         };
 
         history.push(result);
+        io.emit('broadcast_results', history);
 
-        fileSystem.writeFile('logger/log.json', JSON.stringify(history), function (err) {
+        var jsonResult = JSON.stringify(history);
+        fileSystem.writeFile(fileName, jsonResult, function (err) {
             if (err) {
-                console.log('something went wrong: ' + err);
+                console.log('Something went wrong: ' + err);
             } else {
-                console.log('speedtest finished');
+                console.log('Speedtest finished');
             }
         });
-
-        io.emit('broadcast_results', history);
     });
 
-    st.on('error', function (err) {
+    test.on('error', function (err) {
         console.error(err);
     });
 });
