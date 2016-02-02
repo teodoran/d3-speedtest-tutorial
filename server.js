@@ -33,5 +33,5 @@ var runLoggers = function () {
 runLoggers();
 
 var server = http.listen(port, function () {
-    console.log('server listening on port %s', port);
+    console.log('Server running on http://localhost:' + port + '/');
 });
