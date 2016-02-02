@@ -1,4 +1,4 @@
-Part 1 - Hello Client and Server
+Assignment 0 - Hello Client and Server
 ======
 
 ![client server](/img/ark_client_server.png)

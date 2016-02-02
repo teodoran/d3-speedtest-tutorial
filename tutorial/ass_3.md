@@ -1,9 +1,9 @@
-Part 4 - A better client with D3 and hosting on heroku
+Assignment 3 - A better client with D3 and hosting on heroku
 ======================================================
 
 ![client server](/img/ark_client_server.png)
 
-Nicer client with D3 and hosting on heroku.
+Improve on the client with D3 and hosting on heroku.
 
 Topics introduced:
 
