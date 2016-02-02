@@ -5,8 +5,9 @@ A tutorial where you'll learn to make a network-speed monitoring tool and data s
 Setup notes
 -----------
 
+	git clone https://github.com/teodoran/d3-speedtest-tutorial.git
+	cd /d3-speedtest-tutorial
 	npm init
-	npm start
 
 ### Heroku setup
 
@@ -14,3 +15,22 @@ Setup notes
 	heroku login
 	heroku git:remote -a d3-speedtest-tutorial
 	git push heroku master
+
+
+Local startup
+-------------
+
+Tutorial:
+
+    cd /d3-speedtest-tutorial
+    npm run-script tutorial
+
+Server:
+
+    cd /d3-speedtest-tutorial
+    npm start
+
+Logger:
+
+    cd /d3-speedtest-tutorial
+    npm run-script log
