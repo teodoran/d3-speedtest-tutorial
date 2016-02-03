@@ -1,5 +1,5 @@
 Assignment 4 - Control the loggers through the server
-======================================================
+=====================================================
 
 ![client server](/img/ark_client_server.png)
 

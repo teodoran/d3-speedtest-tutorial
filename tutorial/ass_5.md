@@ -1,5 +1,5 @@
 Assignment 5 - Visualise the data received by the logger
-======================================================
+========================================================
 
 ![client server](/img/ark_client_server.png)
 

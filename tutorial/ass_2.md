@@ -1,5 +1,5 @@
 Assignment 2 - Wire it all up with socket.io
-======================================
+============================================
 
 ![architecture](/img/ark_all.png)
 

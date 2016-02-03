@@ -1,5 +1,5 @@
 Assignment 1 - Build a logger program
-==============================
+=====================================
 
 In this part of the turorial we'll make a speedtest logger program. The logger should be able to run a speedtest using the [speedtest-net package](https://github.com/ddsol/speedtest.net).
 

@@ -1,5 +1,5 @@
 Introduction - Installation and getting started
-=========================================
+===============================================
 
 Backup for people without a text editor.
 
