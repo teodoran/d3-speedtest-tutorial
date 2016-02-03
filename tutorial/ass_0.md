@@ -1,5 +1,5 @@
-Part 1 - Hello Client and Server
-================================
+Assignment 0 - Hello Client and Server
+======================================
 
 In this part of the tutorial we'll make a simple web-page, displaying a short text, and build a node.js server for serving this page.
 

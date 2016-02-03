@@ -1,4 +1,4 @@
-Part 0 - Installation and getting started
+Introduction - Installation and getting started
 =========================================
 
 Backup for people without a text editor.
