@@ -1,6 +1,8 @@
 Part 0 - Installation and getting started
 =========================================
 
+Backup for people without a text editor.
+
 ![architecture](/img/ark_all.png)
 
 Introduction to workshop and setup tools on local machine.
