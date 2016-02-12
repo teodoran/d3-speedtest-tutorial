@@ -1,3 +1,5 @@
+__This tutorial is moved to [krsjan/every-bit-matters](https://github.com/krsjan/every-bit-matters)__
+
 d3-speedtest-tutorial
 =====================
 A tutorial where you'll learn to make a network-speed monitoring tool and data store using Node.js and Express and online viewer using D3.js
